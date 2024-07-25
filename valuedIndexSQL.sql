@@ -1,11 +1,13 @@
-CREATE TABLE `post_tag_scheme`.`post` (
+DROP TABLE IF EXISTS post;
+
+CREATE TABLE post (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `tags` VARCHAR(255) NULL,
+  `tags` JSON NULL,
   PRIMARY KEY (`id`)
 );
 
-CREATE INDEX IX_tags ON post_tag_scheme.post ( (CAST(tags AS CHAR(30) ARRAY)) );
-INSERT INTO post_tag_scheme.post22 (tags) VALUES 
+CREATE INDEX IX_tags ON post ( (CAST(tags AS CHAR(30) ARRAY)) );
+INSERT INTO post (tags) VALUES 
 ('["tag1","tag2","tag3"]'),
 ('["tag4","tag5","tag6","tag7"]'),
 ('["tag8","tag9"]'),
@@ -110,4 +112,4 @@ INSERT INTO post_tag_scheme.post22 (tags) VALUES
 ('["tag49","tag50","tag51","tag52"]'),
 ('["tag53","tag54","tag55"]'),
 ('["tag56","tag57","tag58","tag59","tag60"]');
-EXPLAIN select * from post_tag_scheme.post WHERE 'tag1' MEMBER OF(tags)
+EXPLAIN select * from post WHERE 'tag1' MEMBER OF(tags)
